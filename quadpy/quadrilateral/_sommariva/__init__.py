@@ -25,7 +25,7 @@ def _read(index):
     points = data[:, :2]
     weights = data[:, 2]
     return QuadrilateralScheme(
-        "Sommariva {}".format(index), weights, points, degree, _citation
+        f"Sommariva {index}", weights, points, degree, _citation
     )
 
 

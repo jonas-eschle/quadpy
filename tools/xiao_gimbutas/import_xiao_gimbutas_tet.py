@@ -100,7 +100,6 @@ def _extract_bary_data(data):
     ref_weight = 0.9709835434146467
 
     for k, item in enumerate(data):
-        d = {"degree": k + 1}
         points, weights = item
 
         b = (points - t0).T
@@ -110,7 +109,7 @@ def _extract_bary_data(data):
         )
 
         idx = numpy.argsort(weights)
-        d["weights"] = (weights[idx] / ref_weight).tolist()
+        d = {"degree": k + 1, "weights": (weights[idx] / ref_weight).tolist()}
         d["bary"] = bary[idx].tolist()
         all_dicts.append(d)
 
@@ -121,10 +120,6 @@ def _main():
     data = _parse()
     all_dicts = _extract_bary_data(data)
 
-    # Write the json files.
-
-    # Getting floats in scientific notation in python.json is almost impossible, so do
-    # some work here. Compare with <https://stackoverflow.com/a/1733105/353337>.
     class PrettyFloat(float):
         def __repr__(self):
             return "{:.16e}".format(self)
@@ -133,7 +128,7 @@ def _main():
         if isinstance(obj, float):
             return PrettyFloat(obj)
         elif isinstance(obj, dict):
-            return dict((k, pretty_floats(v)) for k, v in obj.items())
+            return {k: pretty_floats(v) for k, v in obj.items()}
         elif isinstance(obj, (list, tuple, numpy.ndarray)):
             return list(map(pretty_floats, obj))
         return obj

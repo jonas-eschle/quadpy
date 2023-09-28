@@ -10,8 +10,8 @@ import numpy
 
 def data_to_code(data, f):
     for k, item in enumerate(data):
-        print("elif index == {}:".format(k))
-        print("    self.degree = {}".format(item["degree"]))
+        print(f"elif index == {k}:")
+        print(f'    self.degree = {item["degree"]}')
         print("    data = {")
 
         if len(item["data"][0]) > 0:
@@ -119,8 +119,6 @@ def data_to_json(degree, points, weights):
     if len(d["s3"]) == 0:
         d.pop("s3")
 
-    # Getting floats in scientific notation in python.json is almost impossible, so do
-    # some work here. Compare with <https://stackoverflow.com/a/1733105/353337>.
     class PrettyFloat(float):
         def __repr__(self):
             return "{:.16e}".format(self)
@@ -129,7 +127,7 @@ def data_to_json(degree, points, weights):
         if isinstance(obj, float):
             return PrettyFloat(obj)
         elif isinstance(obj, dict):
-            return dict((k, pretty_floats(v)) for k, v in obj.items())
+            return {k: pretty_floats(v) for k, v in obj.items()}
         elif isinstance(obj, (list, tuple)):
             return list(map(pretty_floats, obj))
         return obj
@@ -150,7 +148,7 @@ def data_to_json(degree, points, weights):
 
 def import_triangle():
     directory = "zip/expanded/tri/"
-    for k, file in enumerate(os.listdir(directory)):
+    for file in os.listdir(directory):
         filename = os.fsdecode(file)
         out = re.match("([0-9]+)-([0-9]+)\\.txt", filename)
         degree = int(out.group(1))
@@ -171,10 +169,10 @@ def import_tet():
         "9-59.txt",
         "10-81.txt",
     ]
-    for k, filename in enumerate(filenames):
+    for filename in filenames:
         out = re.match("([0-9]+)-([0-9]+)\\.txt", filename)
         strength = out.group(1)
-        print("elif degree == {}:".format(strength))
+        print(f"elif degree == {strength}:")
         print("    data = [")
         x, weights = read_data_tet(filename)
         data_to_code(x, weights)

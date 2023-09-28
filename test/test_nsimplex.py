@@ -51,9 +51,9 @@ def test_scheme(scheme):
         n,
         scheme.degree + 1,
     )
-    assert degree >= scheme.degree, "Observed: {}, expected: {}".format(
-        degree, scheme.degree
-    )
+    assert (
+        degree >= scheme.degree
+    ), f"Observed: {degree}, expected: {scheme.degree}"
     return
 
 

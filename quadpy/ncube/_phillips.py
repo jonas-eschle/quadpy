@@ -19,27 +19,24 @@ _citation = article(
 
 def phillips(n):
     if n == 2:
-        p1 = 1
         p2 = frac(14, 3)
         q = frac(5, 3)
     elif n == 3:
-        p1 = 1
         p2 = frac(14, 5)
         q = frac(5, 2)
         r = 1
     elif n == 4:
-        p1 = 1
         p2 = frac(112, 11)
         q = 5
         r = 2
     else:
         assert n >= 5
-        p1 = 1
         En = frac(25 * n ** 2 - 165 * n + 302, 972)
         p2 = 1 / (frac(3, 5) - frac(1, 35 * En))
         q = frac(5, 3)
         r = frac(5, 3)
 
+    p1 = 1
     gamma = frac((n - 1) * (19 - 5 * n), 270)
     delta = frac((n - 1) * (n - 2), 108)
 

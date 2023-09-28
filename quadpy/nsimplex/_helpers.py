@@ -37,9 +37,7 @@ class NSimplexScheme:
 
         assert (
             x.shape[1:] == fx.shape[-len(x.shape[1:]) :]
-        ), "Illegal shape of f(x) (expected (..., {}), got {})".format(
-            ", ".join([str(k) for k in x.shape[1:]]), fx.shape
-        )
+        ), f'Illegal shape of f(x) (expected (..., {", ".join([str(k) for k in x.shape[1:]])}), got {fx.shape})'
         return vol * dot(fx, flt(self.weights))
 
 
@@ -75,8 +73,7 @@ def get_vol(simplex):
     a = numpy.moveaxis(a, (0, 1), (-2, -1))
     det = numpy.linalg.det(a)
 
-    vol = numpy.sqrt((-1.0) ** (j + 1) / 2 ** j / math.factorial(j) ** 2 * det)
-    return vol
+    return numpy.sqrt((-1.0) ** (j + 1) / 2 ** j / math.factorial(j) ** 2 * det)
 
 
 def integrate_monomial_over_unit_simplex(k, symbolic=False):
@@ -103,6 +100,8 @@ def integrate_monomial_over_unit_simplex(k, symbolic=False):
     # exp-log to account for large values in numerator and denominator
     # import scipy.special
     return math.exp(
-        math.fsum([scipy.special.gammaln(kk + 1) for kk in k])
-        - scipy.special.gammaln(sum([kk + 1 for kk in k]) + 1)
+        (
+            math.fsum([scipy.special.gammaln(kk + 1) for kk in k])
+            - scipy.special.gammaln(sum(kk + 1 for kk in k) + 1)
+        )
     )

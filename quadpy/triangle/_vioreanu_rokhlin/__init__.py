@@ -32,7 +32,7 @@ def _read(index):
     points, weights = untangle2(data)
     weights /= 2
     return TriangleScheme(
-        "Vioreanu-Rokhlin {}".format(index), weights, points, degree, citation
+        f"Vioreanu-Rokhlin {index}", weights, points, degree, citation
     )
 
 

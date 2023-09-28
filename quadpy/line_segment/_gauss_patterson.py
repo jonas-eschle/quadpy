@@ -497,7 +497,7 @@ def gauss_patterson(index):
         )
 
     return LineSegmentScheme(
-        "Gauss-Patterson {}".format(index), degree, weights, points, citation
+        f"Gauss-Patterson {index}", degree, weights, points, citation
     )
 
 
@@ -810,12 +810,16 @@ def _get_weights(pts):
     # Gauss-Legendre of order k integrates polynomials of degree 2*k-1 exactly. L has
     # degree n-1, so k needs to be n/2 if n is even, and (n+1)/2 if n is odd.
     k = (n // 2) - 1 if n % 2 == 0 else (n + 1) // 2
-    out = numpy.array(
+    return numpy.array(
         [
             gauss_legendre(k).integrate(
                 # Normalized Lagrange polynomial: Degree n-1, 0 at all x_j, 1 at x_i.
                 lambda x: numpy.prod(
-                    [(x - pts[j]) / (pts[i] - pts[j]) for j in range(n) if j != i],
+                    [
+                        (x - pts[j]) / (pts[i] - pts[j])
+                        for j in range(n)
+                        if j != i
+                    ],
                     axis=0,
                 ),
                 numpy.array([-1, 1]),
@@ -823,4 +827,3 @@ def _get_weights(pts):
             for i in range(n)
         ]
     )
-    return out

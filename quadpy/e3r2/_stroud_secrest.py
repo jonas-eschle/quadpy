@@ -91,7 +91,7 @@ def _stroud_secrest_10(positive):
     points, weights = untangle(data)
     weights *= sqrt(pi) ** 3
     return E3r2Scheme(
-        "Stroud-Secrest X{}".format("a" if positive else "b"),
+        f'Stroud-Secrest X{"a" if positive else "b"}',
         weights,
         points,
         7,

@@ -32,9 +32,8 @@ def get_symmetry_code_tet(pts):
         ct = numpy.count_nonzero(abs(beta) < tol)
         if ct == 1:
             return "_s31({:.15e})".format(pts[0][1])
-        else:
-            assert ct == 3
-            return "_s31({:.15e})".format(pts[0][0])
+        assert ct == 3
+        return "_s31({:.15e})".format(pts[0][0])
     elif len(pts) == 6:
         # Symmetry group [[a, a, b, b], [a, b, b, a], ...].
         return "_s22({:.15e})".format(pts[0][0])

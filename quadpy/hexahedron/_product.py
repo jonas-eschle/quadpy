@@ -15,7 +15,7 @@ def product(scheme1d):
     y, z, x = numpy.meshgrid(schemes[0].points, schemes[1].points, schemes[2].points)
     points = numpy.vstack([x.flatten(), y.flatten(), z.flatten()]).T
 
-    degree = min([s.degree for s in schemes])
+    degree = min(s.degree for s in schemes)
     return HexahedronScheme(
-        "Product scheme ({})".format(scheme1d.name), weights, points, degree
+        f"Product scheme ({scheme1d.name})", weights, points, degree
     )

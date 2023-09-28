@@ -70,7 +70,7 @@ def _stroud_5_5(n, variant_a):
 
     points, weights = untangle(data)
     weights *= sqrt(pi) ** n
-    name = "Stroud Enr2 5-5{}".format("a" if variant_a else "b")
+    name = f'Stroud Enr2 5-5{"a" if variant_a else "b"}'
     return Enr2Scheme(name, n, weights, points, 5, citation)
 
 

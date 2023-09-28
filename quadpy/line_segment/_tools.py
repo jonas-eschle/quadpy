@@ -56,9 +56,7 @@ def integrate_adaptive(
         lengths = abs(intervals[1] - intervals[0])
         if any(lengths < minimum_interval_length):
             raise IntegrationError(
-                "Tolerance ({}) could not be reached with the minimum_interval_length (= {}).".format(
-                    eps, minimum_interval_length
-                )
+                f"Tolerance ({eps}) could not be reached with the minimum_interval_length (= {minimum_interval_length})."
             )
         is_good = _numpy_all_except(
             error_estimate < eps * lengths / total_length, axis=-1

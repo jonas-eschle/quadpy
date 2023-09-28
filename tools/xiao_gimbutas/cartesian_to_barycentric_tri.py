@@ -43,17 +43,17 @@ with open("symq.txt") as f:
             if current_block not in data[-1]:
                 data[-1][current_block] = []
             data[-1][current_block].append(mpmath.mp.mpf(line))
-        else:
-            if current_block is not None:
-                if current_block == "x":
-                    next_block = "y"
-                elif current_block == "y":
-                    next_block = "w"
-                elif current_block == "w":
-                    next_block = "x"
-                current_block = None
+        elif current_block is not None:
+            if current_block == "w":
+                next_block = "x"
+            elif current_block == "x":
+                next_block = "y"
+            elif current_block == "y":
+                next_block = "w"
+            current_block = None
 
 
+tol = 1.0e-10
 for i, scheme_data in enumerate(data):
     X = scheme_data["x"]
     Y = scheme_data["y"]
@@ -65,9 +65,8 @@ for i, scheme_data in enumerate(data):
     # generate barycentric coordinate code
     XY = [[xx, yy] for xx, yy in zip(X, Y)]
     T = mpmath.matrix([[t1[0] - t0[0], t2[0] - t0[0]], [t1[1] - t0[1], t2[1] - t0[1]]])
-    tol = 1.0e-10
     multiplicities = []
-    for k, xy in enumerate(XY):
+    for xy in XY:
         b = [xy[0] - t0[0], xy[1] - t0[1]]
         sol = mpmath.lu_solve(T, b)
         lmbda = [sol[0], sol[1], 1.0 - sol[0] - sol[1]]
@@ -82,13 +81,13 @@ for i, scheme_data in enumerate(data):
             print("        _s3(),")
             multiplicities.append(1)
         elif diffs[0] < tol:
-            print("        _s21(%s)," % lmbda[0])
+            print(f"        _s21({lmbda[0]}),")
             multiplicities.append(3)
         elif diffs[1] < tol:
-            print("        _s21(%s)," % lmbda[1])
+            print(f"        _s21({lmbda[1]}),")
             multiplicities.append(3)
         elif diffs[2] < tol:
-            print("        _s21(%s)," % lmbda[2])
+            print(f"        _s21({lmbda[2]}),")
             multiplicities.append(3)
         else:
             print(

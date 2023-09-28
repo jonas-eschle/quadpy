@@ -158,9 +158,9 @@ def test_scheme(scheme):
         3,
         scheme.degree + 1,
     )
-    assert degree == scheme.degree, "{} -- Observed: {}, expected: {}".format(
-        scheme.name, degree, scheme.degree
-    )
+    assert (
+        degree == scheme.degree
+    ), f"{scheme.name} -- Observed: {degree}, expected: {scheme.degree}"
     return
 
 

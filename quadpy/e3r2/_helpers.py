@@ -28,10 +28,10 @@ class E3r2Scheme:
         flt = numpy.vectorize(float)
         return dot(f(flt(self.points).T), flt(self.weights))
 
-    def show(scheme, backend="vtk"):
+    def show(self, backend="vtk"):
         """Displays scheme for E_3^{r^2} quadrature.
         """
         backend_to_function[backend](
-            scheme.points, scheme.weights, volume=8 * numpy.pi, edges=[]
+            self.points, self.weights, volume=8 * numpy.pi, edges=[]
         )
         return

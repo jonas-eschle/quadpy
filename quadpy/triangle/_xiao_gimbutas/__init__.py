@@ -27,7 +27,7 @@ def _read(degree):
         data = json.load(f)
 
     degree = data.pop("degree")
-    name = "Xiao-Gimbutas {}".format(degree)
+    name = f"Xiao-Gimbutas {degree}"
     points, weights = untangle2(data)
     return TriangleScheme(name, weights, points, degree, citation)
 

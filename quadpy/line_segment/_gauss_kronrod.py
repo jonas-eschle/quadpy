@@ -52,7 +52,7 @@ def gauss_kronrod(n, a=0, b=0):
     points = x[i]
     weights = w[i]
     return LineSegmentScheme(
-        "Gauss-Kronrod ({})".format(n), degree, weights, points, citation
+        f"Gauss-Kronrod ({n})", degree, weights, points, citation
     )
 
 

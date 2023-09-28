@@ -56,9 +56,7 @@ def test_scheme(scheme, tol=1.0e-14):
     )
     assert (
         degree == scheme.degree
-    ), "{} (dim: {}) -- Observed: {}   expected: {}".format(
-        scheme.name, scheme.dim, degree, scheme.degree
-    )
+    ), f"{scheme.name} (dim: {scheme.dim}) -- Observed: {degree}   expected: {scheme.degree}"
     return
 
 
