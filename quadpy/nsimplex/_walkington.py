@@ -107,20 +107,18 @@ def _xi11(d, a, frac):
     assert d > 1
     b = frac(1 - (d - 1) * a, 2)
     if d == 2:
-        out = numpy.array([[b, b, a], [b, a, b], [a, b, b]])
-    else:
-        assert d == 3
-        out = numpy.array(
-            [
-                [b, b, a, a],
-                [b, a, b, a],
-                [b, a, a, b],
-                [a, b, a, b],
-                [a, a, b, b],
-                [a, b, b, a],
-            ]
-        )
-    return out
+        return numpy.array([[b, b, a], [b, a, b], [a, b, b]])
+    assert d == 3
+    return numpy.array(
+        [
+            [b, b, a, a],
+            [b, a, b, a],
+            [b, a, a, b],
+            [a, b, a, b],
+            [a, a, b, b],
+            [a, b, b, a],
+        ]
+    )
 
 
 def _xi21(d, a, frac):
@@ -129,33 +127,29 @@ def _xi21(d, a, frac):
     # ERR Note that the article incorrectly states (d-2) the the expression for c.
     c = 1 - (d - 1) * a - b
     if d == 2:
-        out = numpy.array(
+        return numpy.array(
             [[b, c, a], [c, b, a], [c, a, b], [b, a, c], [a, b, c], [a, c, b]]
         )
-    else:
-        assert d == 3
-        out = numpy.array(
-            [
-                [b, c, a, a],
-                [b, a, c, a],
-                [b, a, a, c],
-                [a, b, a, c],
-                [a, a, b, c],
-                [a, b, c, a],
-                [c, b, a, a],
-                [c, a, b, a],
-                [c, a, a, b],
-                [a, c, a, b],
-                [a, a, c, b],
-                [a, c, b, a],
-            ]
-        )
-
-    return out
+    assert d == 3
+    return numpy.array(
+        [
+            [b, c, a, a],
+            [b, a, c, a],
+            [b, a, a, c],
+            [a, b, a, c],
+            [a, a, b, c],
+            [a, b, c, a],
+            [c, b, a, a],
+            [c, a, b, a],
+            [c, a, a, b],
+            [a, c, a, b],
+            [a, a, c, b],
+            [a, c, b, a],
+        ]
+    )
 
 
 def _xi111(d, a, frac):
     assert d == 3
     b = frac(1 - (d - 2) * a, 3)
-    out = numpy.array([[b, b, b, a], [b, b, a, b], [b, a, b, b], [a, b, b, b]])
-    return out
+    return numpy.array([[b, b, b, a], [b, b, a, b], [b, a, b, b], [a, b, b, b]])

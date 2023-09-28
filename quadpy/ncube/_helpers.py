@@ -100,8 +100,7 @@ def get_detJ(xi, cube):
     #
     J = numpy.array(J)
     J = numpy.moveaxis(J, (0, 1), (-2, -1))
-    out = numpy.linalg.det(J)
-    return out
+    return numpy.linalg.det(J)
 
 
 def integrate_monomial_over_ncube(ncube_limits, exp):

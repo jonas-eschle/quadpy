@@ -24,7 +24,7 @@ def chunk_data(weights):
     ref_weight = 0.0
     tol = 1.0e-12
     while k < len(weights):
-        if len(chunks) > 0 and abs(weights[k] - ref_weight) < tol:
+        if chunks and abs(weights[k] - ref_weight) < tol:
             chunks[-1].append(k)
         else:
             chunks.append([k])
@@ -80,6 +80,7 @@ def sort_into_symmetry_classes(weights, azimuthal_polar):
 def write_json(filename, d):
     # Getting floats in scientific notation in python.json is almost impossible, so do
     # some work here. Compare with <https://stackoverflow.com/a/1733105/353337>.
+
     class PrettyFloat(float):
         def __repr__(self):
             return "{:.16e}".format(self)
@@ -88,7 +89,7 @@ def write_json(filename, d):
         if isinstance(obj, float):
             return PrettyFloat(obj)
         elif isinstance(obj, dict):
-            return dict((k, pretty_floats(v)) for k, v in obj.items())
+            return {k: pretty_floats(v) for k, v in obj.items()}
         elif isinstance(obj, (list, tuple)):
             return list(map(pretty_floats, obj))
         return obj
@@ -120,10 +121,7 @@ if __name__ == "__main__":
         chunks = chunk_data(weights)
         data = sort_into_symmetry_classes(weights, azimuthal_polar)
 
-        delete_list = []
-        for key in data:
-            if len(data[key]) == 0:
-                delete_list.append(key)
+        delete_list = [key for key in data if len(data[key]) == 0]
         for key in delete_list:
             data.pop(key)
         data["degree"] = degree

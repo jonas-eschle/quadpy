@@ -178,11 +178,7 @@ def tanh_sinh_lr(f_left, f_right, alpha, eps, max_steps=10, mode="numpy"):
         # At level 0, one only takes the midpoint, for all greater levels every other
         # point. The value estimation is later completed with the estimation from the
         # previous level which.
-        if level == 0:
-            t = [0]
-        else:
-            t = h * numpy.arange(1, j + 1, 2)
-
+        t = [0] if level == 0 else h * numpy.arange(1, j + 1, 2)
         if mode == "mpmath":
             sinh_t = mp.pi / 2 * numpy.array(list(map(mp.sinh, t)))
             cosh_t = mp.pi / 2 * numpy.array(list(map(mp.cosh, t)))
@@ -342,22 +338,16 @@ def _error_estimate1(
         pi = math.pi
 
     val = h * (h / 2 / pi) ** 2 * fsum(summands)
-    if last_estimate is None:
-        # Root level: The midpoint is counted twice in the above sum.
-        out = val / 2
-    else:
-        out = last_estimate / 8 + val
-
-    return out
+    return val / 2 if last_estimate is None else last_estimate / 8 + val
 
 
 def _error_estimate2(eps, value_estimates, left_summands, right_summands):
     # "less formal" error estimation after Bailey,
     # <https://www.davidhbailey.com/dhbpapers/dhb-tanh-sinh.pdf>
     if len(value_estimates) < 3:
-        error_estimate = 1
+        return 1
     elif value_estimates[0] == value_estimates[-1]:
-        error_estimate = 0
+        return 0
     else:
         # d1 = mp.log10(abs(value_estimates[-1] - value_estimates[-2]))
         # d2 = mp.log10(abs(value_estimates[-1] - value_estimates[-3]))
@@ -369,9 +359,7 @@ def _error_estimate2(eps, value_estimates, left_summands, right_summands):
         e2 = abs(value_estimates[-1] - value_estimates[-3])
         e3 = eps * max(max(abs(left_summands)), max(abs(right_summands)))
         e4 = max(abs(left_summands[-1]), abs(right_summands[-1]))
-        error_estimate = max(e1 ** (mp.log(e1) / mp.log(e2)), e1 ** 2, e3, e4)
-
-    return error_estimate
+        return max(e1 ** (mp.log(e1) / mp.log(e2)), e1 ** 2, e3, e4)
 
 
 def _solve_expx_x_logx(tau, tol, kernel, ln, max_steps=10):

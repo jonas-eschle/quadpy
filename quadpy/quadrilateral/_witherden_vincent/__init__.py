@@ -39,7 +39,7 @@ def _read(degree):
 
     weights, points = concat(*d)
     return QuadrilateralScheme(
-        "Witherden-Vincent {}".format(degree), weights, points, degree, _citation
+        f"Witherden-Vincent {degree}", weights, points, degree, _citation
     )
 
 

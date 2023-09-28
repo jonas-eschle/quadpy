@@ -29,7 +29,7 @@ def _read(index):
     points, weights = untangle2(data)
     weights *= 3.0 / 4.0
     return TetrahedronScheme(
-        "Vioreanu-Rokhlin {}".format(index), weights, points, degree, citation
+        f"Vioreanu-Rokhlin {index}", weights, points, degree, citation
     )
 
 

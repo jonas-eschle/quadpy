@@ -47,8 +47,10 @@ def integrate_monomial_over_unit_nsphere(alpha, symbolic=False):
 
     if symbolic:
         return 2 * (
-            prod([gamma(Rational(a + 1, 2)) for a in alpha])
-            / gamma(sum([Rational(a + 1, 2) for a in alpha]))
+            (
+                prod([gamma(Rational(a + 1, 2)) for a in alpha])
+                / gamma(sum(Rational(a + 1, 2) for a in alpha))
+            )
         )
 
     # Use lgamma since other with ordinary gamma, numerator and denominator

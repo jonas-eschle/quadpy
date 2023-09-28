@@ -57,7 +57,7 @@ def test_chebyshev(dtype):
 
         alpha, beta = quadpy.tools.chebyshev(moments)
 
-        assert all([a == 0 for a in alpha])
+        assert all(a == 0 for a in alpha)
         assert (
             beta
             == [

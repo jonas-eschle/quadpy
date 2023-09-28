@@ -168,11 +168,7 @@ def test_scheme_cartesian(scheme, tol):
         approximate = 4 * numpy.pi * numpy.dot(vals, scheme.weights)
 
         # construct exact value
-        if k == 0:
-            exact = [numpy.sqrt(4 * numpy.pi)]
-        else:
-            exact = numpy.zeros_like(approximate)
-
+        exact = [numpy.sqrt(4 * numpy.pi)] if k == 0 else numpy.zeros_like(approximate)
         if numpy.any(numpy.abs(approximate - exact) > tol):
             degree = k - 1
             break

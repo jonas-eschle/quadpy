@@ -50,7 +50,7 @@ def _stroud_1967_7_2(n, variant_a=True):
     points, weights = untangle(data)
     weights *= sqrt(pi) ** n
 
-    name = "Stroud 1967-7 2 (variant {})".format("a" if variant_a else "b")
+    name = f'Stroud 1967-7 2 (variant {"a" if variant_a else "b"})'
     return Enr2Scheme(name, n, weights, points, 7, citation)
 
 

@@ -60,7 +60,7 @@ def _hammer_stroud_5_3(variant_a):
     data = [(B0, z(3)), (B1, fsd(3, (r, 1))), (B2, fsd(3, (s, 2))), (B3, pm(3, t))]
     points, weights = untangle(data)
     return HexahedronScheme(
-        "Hammer-Stroud 5-3{}".format("a" if variant_a else "b"),
+        f'Hammer-Stroud 5-3{"a" if variant_a else "b"}',
         weights,
         points,
         7,

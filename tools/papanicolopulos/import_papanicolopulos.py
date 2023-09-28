@@ -47,8 +47,8 @@ def read_data(filename, num_orbit_types):
 
 def data_to_code(data, f):
     for k, item in enumerate(data):
-        print("elif index == {}:".format(k))
-        print("    self.degree = {}".format(item["degree"]))
+        print(f"elif index == {k}:")
+        print(f'    self.degree = {item["degree"]}')
         print("    data = {")
 
         if len(item["data"][0]) > 0:
@@ -92,10 +92,7 @@ def data_to_json(data, f):
                 fh.write('  "s2": [\n')
                 for d1 in item["data"][1]:
                     # find the value that appears twice
-                    if abs(d1[0] - d1[1]) < 1.0e-12:
-                        alpha = d1[0]
-                    else:
-                        alpha = d1[2]
+                    alpha = d1[0] if abs(d1[0] - d1[1]) < 1.0e-12 else d1[2]
                     fh.write("    [{:.16e}, {:.16e}],\n".format(d1[0], alpha))
                 fh.write("  ],\n")
 

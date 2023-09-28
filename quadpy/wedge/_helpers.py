@@ -98,7 +98,7 @@ def _get_detJ(xi, wedge):
         + mo(0.5 * xi[0], wedge[1, 1])
         + mo(0.5 * xi[1], wedge[1, 2])
     ).T
-    det = (
+    return (
         +J0[0] * J1[1] * J2[2]
         + J1[0] * J2[1] * J0[2]
         + J2[0] * J0[1] * J1[2]
@@ -106,4 +106,3 @@ def _get_detJ(xi, wedge):
         - J1[2] * J2[1] * J0[0]
         - J2[2] * J0[1] * J1[0]
     )
-    return det

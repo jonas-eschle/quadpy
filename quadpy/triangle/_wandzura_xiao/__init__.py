@@ -30,7 +30,7 @@ def _read(index):
     data = data
     points, weights = untangle2(data)
     return TriangleScheme(
-        "Wandzura-Xiao {}".format(index), weights, points, degree, citation
+        f"Wandzura-Xiao {index}", weights, points, degree, citation
     )
 
 

@@ -127,10 +127,6 @@ def _main():
     data = _parse()
     all_dicts = _extract_bary_data(data)
 
-    # Write the json files.
-
-    # Getting floats in scientific notation in python.json is almost impossible, so do
-    # some work here. Compare with <https://stackoverflow.com/a/1733105/353337>.
     class PrettyFloat(float):
         def __repr__(self):
             return "{:.16e}".format(self)
@@ -139,7 +135,7 @@ def _main():
         if isinstance(obj, float):
             return PrettyFloat(obj)
         elif isinstance(obj, dict):
-            return dict((k, pretty_floats(v)) for k, v in obj.items())
+            return {k: pretty_floats(v) for k, v in obj.items()}
         elif isinstance(obj, (list, tuple)):
             return list(map(pretty_floats, obj))
         return obj

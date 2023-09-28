@@ -46,7 +46,7 @@ def _stroud_1967_7_ab(n, variant_a):
 
     weights *= volume_unit_ball(n)
 
-    name = "Stroud 1967-7{}".format("a" if variant_a else "b")
+    name = f'Stroud 1967-7{"a" if variant_a else "b"}'
     return NBallScheme(name, n, weights, points, 7, citation)
 
 

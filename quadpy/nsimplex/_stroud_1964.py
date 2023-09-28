@@ -54,7 +54,7 @@ def _stroud_1964(variant_a, n):
 
     points, weights = untangle(data)
 
-    name = "Stroud 1964{}".format("a" if variant_a else "b")
+    name = f'Stroud 1964{"a" if variant_a else "b"}'
     return NSimplexScheme(name, n, weights, points, degree, citation)
 
 

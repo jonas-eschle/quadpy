@@ -37,7 +37,7 @@ def read_data(filename, blocks="xyzw"):
             # remove empty strings
             numbers = [number for number in numbers if number]
 
-            if all([is_float(number) for number in numbers]):
+            if all(is_float(number) for number in numbers):
                 for number in numbers:
                     if current_block is None:
                         current_block = next_block
@@ -72,15 +72,12 @@ def tet_symmetries(groups):
         multiplicity = 1
     elif len(groups) == 2:
         if len(groups[0]) == 2 and len(groups[1]) == 2:
-            print(8 * " " + "_s22(%s)," % groups[0][0])
+            print(8 * " " + f"_s22({groups[0][0]}),")
             multiplicity = 6
         else:
             assert len(groups[0]) == 3 or len(groups[1]) == 3
-            if len(groups[0]) == 3:
-                a = groups[0][0]
-            else:
-                a = groups[1][0]
-            print(8 * " " + "_s31(%s)," % a)
+            a = groups[0][0] if len(groups[0]) == 3 else groups[1][0]
+            print(8 * " " + f"_s31({a}),")
             multiplicity = 4
     elif len(groups) == 3:
         assert len(groups[0]) == 2 or len(groups[1]) == 2 or len(groups[2]) == 2
@@ -146,7 +143,7 @@ for i, scheme_data in enumerate(data):
     XYZ = [[xx, yy, zz] for xx, yy, zz in zip(X, Y, Z)]
     T = mpmath.matrix([[t1[k] - t0[k], t2[k] - t0[k], t3[k] - t0[k]] for k in range(3)])
     multiplicities = []
-    for k, xyz in enumerate(XYZ):
+    for xyz in XYZ:
         b = [xyz[k] - t0[k] for k in range(3)]
         sol = mpmath.lu_solve(T, b)
         lmbda = [sol[0], sol[1], sol[2], 1.0 - sol[0] - sol[1] - sol[2]]
@@ -162,19 +159,12 @@ for i, scheme_data in enumerate(data):
             + 8 * " "
             + "],"
         )
-        # diffs = [
-        #     abs(lmbda[k-1] - lmbda[k]) for k in range(4)
-        #     ]
-        # groups = find_duplicate_groups(diffs)
-        # mult = tet_symmetries(groups)
-        # multiplicities.append(mult)
-
     print("        ])")
     print("    self.weights = numpy.array([")
     # generate weight code
     alpha = mpmath.mp.mpf("0.9709835434146467")
     for weight in W:
-        print("        %s," % (weight / alpha))
+        print(f"        {weight / alpha},")
     print("        ])")
 
     # print('        ])')
